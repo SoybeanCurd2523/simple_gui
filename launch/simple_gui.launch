@@ -1,0 +1,33 @@
+<launch>
+
+    <node pkg="simple_gui" type="simple_gui" name="simple_gui" output="screen"/>
+
+
+    <node pkg="joy" type="joy_node" name="joy_node"/>
+
+
+
+    <node pkg="rosserial_python" type="serial_node.py" name="serial_node">
+      <param name="port" value="/dev/MEGA"/>
+      <param name="baud" value="57600"/>
+    </node>
+
+
+    <!-- <include file="$(find usb_cam)/launch/usb_cam-test.launch"> -->
+
+
+    <node name="usb_cam" pkg="usb_cam" type="usb_cam_node" output="screen" >
+      <param name="video_device" value="/dev/CAM" />
+      <param name="image_width" value="1280" />
+      <param name="image_height" value="720" />
+      <param name="pixel_format" value="mjpeg" />
+      <param name="camera_frame_id" value="usb_cam" />
+      <param name="io_method" value="mmap"/>
+      <param name="framerate" value="15"/> <!-- frame -->
+
+    </node>
+
+
+   <node pkg="sdk_begin" type="pan_tilt" name="pan_tilt"/>
+</launch>
+
